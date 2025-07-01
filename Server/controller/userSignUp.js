@@ -3,6 +3,10 @@ const userModel = require("../models/userModel")
 async function userSignUpController(req, res) {
     try {
         const { name, email, password } = req.body
+        const checkUser = await userModel.findOne({email})
+        if (checkUser) {
+            throw new Error('User Already Exist')
+        }
         if (!email) {
             throw new Error('Please proide email')
         }
@@ -12,7 +16,7 @@ async function userSignUpController(req, res) {
         if (!password) {
             throw new Error('Please proide password')
         }
-        console.log('req.body',req.body)
+       
 
         const salt = bcrypt.genSaltSync(10);
         const hashPassword =  bcrypt.hashSync(password, salt);

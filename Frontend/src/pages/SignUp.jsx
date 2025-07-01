@@ -5,6 +5,8 @@ import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import imageTobase64 from '../imageTobase64';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 const SignUp = () => {
   const [showpassword, setshowpassword] = useState(false)
   const [showconfirmpassword, setshowconfirmpassword] = useState(false)
@@ -40,6 +42,26 @@ const SignUp = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if(data.password===data.confirmPassword){
+
+      const dataResponse = await fetch(SummaryApi.SignUp.url,{
+        method : SummaryApi.SignUp.method,
+        headers:{
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      const dataApi = await dataResponse.json()
+      if(dataApi.success){
+        toast.success(dataApi.message)
+      }
+      if(dataApi.error){
+        toast.error(dataApi.message)
+      }
+      console.log("dataApi",dataApi)
+    }else{
+      toast.error("Password dosn't match")
+    }
   }
   return (
     <section id="signup">
@@ -49,7 +71,7 @@ const SignUp = () => {
           <div>
             <img className='    h-20 w-20 object-cover  ' src={data.profilePic || Logo} alt="error" />
           </div>
-          <form onSubmit={handleSubmit}>
+          <form  >
             <label>
               <div className='bg-slate-200 w-full text-xs pt-2 pb-4  cursor-pointer opacity-60 absolute bottom-0'>Upload photo
               </div>
@@ -107,7 +129,7 @@ const SignUp = () => {
             </span>
           </div>
 
-          <input type='Submit' value="Sign up" className='bg-red-600 text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' />
+          <button type='Submit' name='signUp' className='bg-red-600 text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >SignUp</button>
           <div className=' '>Already have account ? <Link to={"/login"} className='text-red-600 cursor-pointer hover:underline'>Sign in</Link></div>
         </form>
 
