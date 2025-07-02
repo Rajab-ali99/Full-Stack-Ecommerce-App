@@ -4,6 +4,8 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 const Login = () => {
     const [showpassword, setshowpassword] = useState(false)
     const [data, setdata] = useState({
@@ -23,8 +25,22 @@ const Login = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-
+      const dataResponse = await fetch(SummaryApi.SignIn.url,{
+        method: SummaryApi.SignIn.method,
+        headers:{
+            "content-type" : "application/json"
+        },
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+      const dataApi = await dataResponse.json()
+      if(dataApi.success){
+        toast.success(dataApi.message)
+        navigate('/')
+      }
+      if(dataApi.error){
+        toast.error(dataApi.message)
+      }
     }
     return (
         <section id="login">
@@ -58,7 +74,7 @@ const Login = () => {
                         </span>
                     </div>
                     <Link to={"/Forgotpassword"} className='  hover:underline w-full cursor-pointer flex justify-end  hover:text-red-600 '>Forgot password?</Link >
-                    <input type='Submit' value="Login" className='bg-red-600 text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' />
+                    <button type='Submit'  className='bg-red-600 text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >Login</button>
                     <div className=' '>Don't have account ? <Link to={"/signup"} className='text-red-600 cursor-pointer hover:underline'>Sign up</Link></div>
                 </form>
 

@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import imageTobase64 from '../imageTobase64';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
+
 const SignUp = () => {
   const [showpassword, setshowpassword] = useState(false)
   const [showconfirmpassword, setshowconfirmpassword] = useState(false)
@@ -15,7 +16,7 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    profilePic: "",
+    profilePic: null,
   })
   const navigate = useNavigate()
   const handleOnChange = (e) => {
@@ -30,36 +31,38 @@ const SignUp = () => {
   }
   const handleUploadPic = async (e) => {
     let file = e.target.files[0]
-    let Pic = await imageTobase64(file)
-    console.log(Pic)
     setdata((preve) => {
       return {
         ...preve,
-        profilePic: Pic
+        profilePic: URL.createObjectURL(file)
       }
     })
+     
 
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if(data.password===data.confirmPassword){
+    if (data.password === data.confirmPassword) {
+      
 
-      const dataResponse = await fetch(SummaryApi.SignUp.url,{
-        method : SummaryApi.SignUp.method,
-        headers:{
+      const dataResponse = await fetch(SummaryApi.SignUp.url, {
+        method: SummaryApi.SignUp.method,
+        headers: {
           "content-type": "application/json"
         },
         body: JSON.stringify(data)
       })
       const dataApi = await dataResponse.json()
-      if(dataApi.success){
+      if (dataApi.success) {
         toast.success(dataApi.message)
+        navigate("/login")
       }
-      if(dataApi.error){
+      if (dataApi.error) {
         toast.error(dataApi.message)
       }
-      console.log("dataApi",dataApi)
-    }else{
+
+    } else {
       toast.error("Password dosn't match")
     }
   }
@@ -77,6 +80,7 @@ const SignUp = () => {
               </div>
               <input className='hidden'
                 type="file"
+                name='profilePic'
                 onChange={handleUploadPic} />
             </label>
           </form>
