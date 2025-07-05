@@ -4,9 +4,9 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import imageTobase64 from '../imageTobase64';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
+import uploadFile from '../helpers/uploadFile';
 
 const SignUp = () => {
   const [showpassword, setshowpassword] = useState(false)
@@ -16,7 +16,7 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    profilePic: null,
+    profilePic: "",
   })
   const navigate = useNavigate()
   const handleOnChange = (e) => {
@@ -31,15 +31,17 @@ const SignUp = () => {
   }
   const handleUploadPic = async (e) => {
     let file = e.target.files[0]
+    const uploadPhoto =await uploadFile(file)
     setdata((preve) => {
       return {
         ...preve,
-        profilePic: URL.createObjectURL(file)
+        profilePic: uploadPhoto?.url
       }
     })
-     
-
+    
+    
   }
+  console.log("profile",data.profilePic)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -72,7 +74,7 @@ const SignUp = () => {
       <div className='container  bg-white pt-4 pb-10 w-full max-w-sm mx-auto my-5'>
         <div className="logo my-4 mx-auto rounded-full h-20 w-20 overflow-hidden  relative   ">
           <div>
-            <img className='    h-20 w-20 object-cover  ' src={data.profilePic || Logo} alt="error" />
+            <img className='    h-20 w-20 object-cover  ' src={data?.profilePic || Logo} alt="error" />
           </div>
           <form  >
             <label>
