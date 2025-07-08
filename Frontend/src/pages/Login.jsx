@@ -77,7 +77,7 @@ const Login = () => {
                         </span>
                     </div>
                     <Link to={"/Forgotpassword"} className='  hover:underline w-full cursor-pointer flex justify-end  hover:text-red-600 '>Forgot password?</Link >
-                    <button type='Submit'  className='bg-red-600 text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >Login</button>
+                    <button type='Submit'  className='bg-red-600 cursor-pointer text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >Login</button>
                     <div className=' '>Don't have account ? <Link to={"/signup"} className='text-red-600 cursor-pointer hover:underline'>Sign up</Link></div>
                 </form>
 

@@ -10,7 +10,7 @@ async function userSignInController(req, res) {
             throw new Error('Please proide email')
         }
         if (!password) {
-            throw new Error('Please proide password')
+            throw new Error('Please provide password')
         }
         if (!checkUser) {
             throw new Error('User not exist')

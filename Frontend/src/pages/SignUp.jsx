@@ -135,7 +135,7 @@ const SignUp = () => {
             </span>
           </div>
 
-          <button type='Submit' name='signUp' className='bg-red-600 text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >SignUp</button>
+          <button type='Submit' name='signUp' className='bg-red-600 text-white px-6 cursor-pointer hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >SignUp</button>
           <div className=' '>Already have account ? <Link to={"/login"} className='text-red-600 cursor-pointer hover:underline'>Sign in</Link></div>
         </form>
 
