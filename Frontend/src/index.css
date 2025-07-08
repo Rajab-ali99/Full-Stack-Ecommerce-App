@@ -2,3 +2,14 @@
 body{
   @apply bg-slate-100
 }
+.userTable{
+    @apply bg-white 
+}
+
+.userTable th{
+    @apply  shadow text-base font-medium
+}
+
+.userTable td{
+    @apply  shadow text-base text-sm text-center
+}
