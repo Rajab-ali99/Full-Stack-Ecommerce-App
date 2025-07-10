@@ -4,6 +4,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import ROLE from '../common/role';
 
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
@@ -39,46 +40,60 @@ const Header = () => {
         </div>
       </div>
       <div className="gap-4 lg:gap-7 icons flex items-center cursor-pointer">
-        <div className="user relative flex justify-center">
-          {
-            user?._id ? (
-            <img onClick={()=>setshowMenu(preve=> !preve)} className='h-10 w-10 rounded-full' src={user?.profilePic} alt={user?.name} />
-            ) : (
+        {
+          user?._id && (
 
-              <FaRegUserCircle className='text-3xl' />
-            )
-          }
-          {
-            showMenu &&(
-         <div className='absolute top-13 p-1 hidden  md:block bg-white h-fit bottom-0   whitespace-nowrap'>
-            <nav onClick={()=>setshowMenu(preve=> !preve)}>
-              <Link to="admin-panel">Admin Panal</Link>
-            </nav>
-          </div>
-            )
-          }
-        </div>
+            <div className="user relative flex justify-center">
+              {
+                user?.profilePic ? (
+                  <img onClick={() => setshowMenu(preve => !preve)} className='h-10 w-10 rounded-full' src={user?.profilePic} alt={user?.name} />
+                ) : (
+
+                  <FaRegUserCircle className='text-3xl' />
+                )
+              }
+              {
+                showMenu && (
+
+                  <div className='absolute top-13 p-1 hidden  md:block  h-fit bottom-0   whitespace-nowrap'>
+                    {
+                      user?.ROLE === ROLE.ADMIN && (
+
+                        <nav onClick={() => setshowMenu(preve => !preve)}>
+                          <Link to="admin-panel" className='hover:text-red-600 h-full p-1 bg-white'>Admin Panal</Link>
+                        </nav>
+
+
+                      )
+                    }
+                  </div>
+                )
+              }
+
+            </div>
+          )
+        }
         <div className="shoping-cart relative flex ">
           <FaShoppingCart className='text-2xl ' />
           <span className='bg-red-600 h-5 w-5 absolute -top-2 -right-3 text-sm rounded-full flex items-center justify-center text-white '>0</span>
         </div >
-        
 
-          <div >
 
-            {
-              user?._id ? (<button onClick={handleLogout} className='bg-red-600 text-white px-3 py-1 cursor-pointer
+        <div >
+
+          {
+            user?._id ? (<button onClick={handleLogout} className='bg-red-600 text-white px-3 py-1 cursor-pointer
               rounded-full hover:bg-red-700'>Logout</button>) : (
 
-                <Link to={"/login"} className="login">
-                  <button className='bg-red-600 text-white px-3 py-1 cursor-pointer
+              <Link to={"/login"} className="login">
+                <button className='bg-red-600 text-white px-3 py-1 cursor-pointer
              rounded-full hover:bg-red-700'>Login</button>
-                </Link>
-              )
-            }
-          </div>
-         
-        
+              </Link>
+            )
+          }
+        </div>
+
+
 
       </div>
     </nav>
