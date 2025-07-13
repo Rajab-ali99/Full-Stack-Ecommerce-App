@@ -60,7 +60,7 @@ const Header = () => {
                       user?.ROLE === ROLE.ADMIN && (
 
                         <nav onClick={() => setshowMenu(preve => !preve)}>
-                          <Link to="admin-panel" className='hover:text-red-600 h-full p-1 bg-white'>Admin Panal</Link>
+                          <Link to="admin-panel/upload-products" className='hover:text-red-600 h-full p-1 bg-white'>Admin Panal</Link>
                         </nav>
 
 

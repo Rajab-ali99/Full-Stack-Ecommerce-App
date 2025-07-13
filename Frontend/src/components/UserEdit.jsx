@@ -53,8 +53,8 @@ const [userRole, setuserRole] = useState(role)
                 <div className='flex items-center justify-between'>
 
                     <p>Role:</p>
-                    <select name="Role" value={userRole} onChange={handleChangeSelect}>
-
+                    <select name="Role" className='cursor-pointer bg-slate-200 p-1 rounded shadow outline-none' value={userRole} onChange={handleChangeSelect}>
+                         
                         {
                             Object.values(ROLE).map(el => {
                                 return (
