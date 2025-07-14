@@ -8,17 +8,17 @@ import UploadImagePreview from './UploadImagePreview';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 
-const UploadProducts = ({ onclose }) => {
-    const [showFullimage, setshowFullimage] = useState(false)
+const EditUploadedProduct = ({onclose,ProductData}) => {
+     const [showFullimage, setshowFullimage] = useState(false)
     const [showFullImageUrl, setshowFullImageUrl] = useState('')
     const [dataUpload, setdataUpload] = useState({
-        productName: '',
-        brandName: '',
-        category: '',
-        productImage: [],
-        description: '',
-        price: '',
-        sellingPrice: ''
+        productName: ProductData?.productName,
+        brandName: ProductData?.brandName,
+        category: ProductData?.productCategory,
+        productImage: ProductData?.productImage,
+        description: ProductData?.description,
+        price: ProductData?.price,
+        sellingPrice: ProductData?.sellingPrice
 
     })
     const handleSubmit = async(e)=>{
@@ -77,12 +77,11 @@ const handleDelete = (index)=>{
 
         })
 }
-
-    return (
-        <div className='absolute z-10 top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-slate-200/55'>
+   return (
+        <div className='fixed z-10 top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-slate-200/55'>
             <div className='bg-white w-full rounded p-4 max-w-2xl h-[85%] overflow-hidden'>
                 <div className='flex items-center justify-between'>
-                    <h1 className='font-bold text-xl'>Upload Product</h1>
+                    <h1 className='font-bold text-xl'>Edit Product</h1>
                     <button onClick={onclose}>
                         <RxCross2 className='text-2xl cursor-pointer hover:text-red-500' />
                     </button>
@@ -227,4 +226,4 @@ const handleDelete = (index)=>{
     )
 }
 
-export default UploadProducts
+export default EditUploadedProduct
