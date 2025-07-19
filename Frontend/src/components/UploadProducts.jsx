@@ -8,7 +8,7 @@ import UploadImagePreview from './UploadImagePreview';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 
-const UploadProducts = ({ onclose }) => {
+const UploadProducts = ({ onclose,calFun }) => {
     const [showFullimage, setshowFullimage] = useState(false)
     const [showFullImageUrl, setshowFullImageUrl] = useState('')
     const [dataUpload, setdataUpload] = useState({
@@ -40,6 +40,7 @@ const UploadProducts = ({ onclose }) => {
          if(dataApi.error){
             toast.error(dataApi.message)
          }
+         calFun()
          onclose()
      
     }

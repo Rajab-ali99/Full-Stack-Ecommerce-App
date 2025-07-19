@@ -28,7 +28,7 @@ const AllProducts = () => {
       </div>
       {
         openUploadProduct && (
-          <UploadProducts onclose={() => setopenUploadProduct(false)} />
+          <UploadProducts calFun={getProductData} onclose={() => setopenUploadProduct(false)} />
         )
       }
       <div className='flex gap-5  mt-2'>
@@ -36,7 +36,7 @@ const AllProducts = () => {
         {
           productData.map((product, index) => {
             return (
-              <ProductCard  data={product} key={index + 'all products'} />
+              <ProductCard  data={product} key={index + 'all products'} calFun={getProductData} />
             )
           })
         }

@@ -8,10 +8,11 @@ import UploadImagePreview from './UploadImagePreview';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 
-const EditUploadedProduct = ({onclose,ProductData}) => {
+const EditUploadedProduct = ({onclose,ProductData,calFun}) => {
      const [showFullimage, setshowFullimage] = useState(false)
     const [showFullImageUrl, setshowFullImageUrl] = useState('')
     const [dataUpload, setdataUpload] = useState({
+        ...ProductData,
         productName: ProductData?.productName,
         brandName: ProductData?.brandName,
         category: ProductData?.productCategory,
@@ -23,8 +24,8 @@ const EditUploadedProduct = ({onclose,ProductData}) => {
     })
     const handleSubmit = async(e)=>{
      e.preventDefault()
-     const Response = await fetch(SummaryApi.uploadProduct.url,{
-        method : SummaryApi.uploadProduct.method,
+     const Response = await fetch(SummaryApi.updateProduct.url,{
+        method : SummaryApi.updateProduct.method,
         credentials:'include',
         headers:{
             'content-type':'application/json'
@@ -36,11 +37,12 @@ const EditUploadedProduct = ({onclose,ProductData}) => {
 
          if(dataApi.success){
             toast.success(dataApi.message)
+            calFun()
+            onclose()
          }
          if(dataApi.error){
             toast.error(dataApi.message)
          }
-         onclose()
      
     }
     const handleUploadPic = async (e) => {
@@ -118,13 +120,11 @@ const handleDelete = (index)=>{
                         <select
                             required
                             name="category"
-                            id="category"
                             className='w-full bg-slate-100 mt-1 p-2 outline-none shadow'
                             value={dataUpload.category}
-                            onChange={handleOnChange}
-                        >
+                            onChange={handleOnChange}>
 
-                            <option >Select Category</option>
+                            <option value={''}>Select Category</option>
                             {
                                 productCategory.map((el, index) => {
                                     return (
@@ -214,7 +214,7 @@ const handleDelete = (index)=>{
                      placeholder='Enter product description...'
                      className='resize-none rounded bg-slate-100 p-2 outline-none shadow h-32'
                      ></textarea>
-                    <button className='mb-10 w-md mt-3 mx-auto bg-red-600 transition-all hover:bg-red-700 border-2 py-1 cursor-pointer text-white  hover px-2 rounded-full'>Upload Product</button>
+                    <button className='mb-10 w-md mt-3 mx-auto bg-red-600 transition-all hover:bg-red-700 border-2 py-1 cursor-pointer text-white  hover px-2 rounded-full'>Update Product</button>
                 </form>
                 {
                   showFullimage &&(
