@@ -13,3 +13,6 @@ body{
 .userTable td{
     @apply  shadow text-base text-sm text-center
 }
+.scrollbar-none::-webkit-scrollbar{
+    display: none;
+}

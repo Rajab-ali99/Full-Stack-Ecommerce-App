@@ -163,7 +163,7 @@ const handleDelete = (index)=>{
                                                         setshowFullImageUrl(el)
                                                         setshowFullimage(true)
                                                     }} 
-                                                    className='bg-slate-100  w-[100px] h-[100px]' />
+                                                    className='bg-slate-100 object-cover  w-[100px] h-[100px]' />
                                                     
                                                         <MdDelete onClick={()=>handleDelete(index)} className='text-2xl hover:cursor-pointer absolute right-0 hidden group-hover:block p-1 bottom-0 bg-red-500 m-1 rounded-full text-white'/>
                                                     </div>

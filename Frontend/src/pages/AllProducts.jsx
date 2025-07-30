@@ -21,7 +21,7 @@ const AllProducts = () => {
 
 
   return (
-    <div className='p-4'>
+    <div className='p-4 '>
       <div className='bg-white rounded px-3 py-3 flex justify-between  w-full'>
         <h1 className='font-bold text-xl'>All Products</h1>
         <button onClick={() => setopenUploadProduct(true)} className='border-red-600 transition-all hover:bg-red-600 border-2 py-1 cursor-pointer hover:text-white text-red-600 hover px-2 rounded-full'>Upload Product</button>
@@ -31,7 +31,7 @@ const AllProducts = () => {
           <UploadProducts calFun={getProductData} onclose={() => setopenUploadProduct(false)} />
         )
       }
-      <div className='flex gap-5  mt-2'>
+      <div className='flex flex-wrap h-[calc(100vh-230px)]  overflow-y-scroll gap-5  mt-2'>
 
         {
           productData.map((product, index) => {

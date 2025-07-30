@@ -8,9 +8,11 @@ const ProductCard = ({
 }) => {
     const [openEditProduct, setopenEditProduct] = useState(false)
   return (
-    <div className=' p-3 rounded relative group bg-white'>
-      <img src={data?.productImage[0]} alt="" width={100} height={100} />
-      <p className='font-bold text-sm text-center'>{data?.productName}</p> 
+    <div className=' p-2 rounded w-40 h-46 relative group bg-white'>
+      <div className='className="w-[110px] h-[110px] mx-auto" '>
+      <img className=' object-contain w-full h-full' src={data?.productImage[0]} alt="" />
+      </div>
+      <p className='font-bold text-ellipsis line-clamp-2 text-sm text-center'>{data?.productName}</p> 
       <p className='text-center text-red-500 text-xs font-bold'>{displayPKRcurrency(data?.sellingPrice)}</p>
       <MdModeEditOutline  
       onClick={()=> setopenEditProduct(true)}

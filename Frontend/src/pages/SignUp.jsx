@@ -69,9 +69,9 @@ const SignUp = () => {
     }
   }
   return (
-    <section id="signup">
+    <section id="signup ">
 
-      <div className='container  bg-white pt-4 pb-10 w-full max-w-sm mx-auto my-5'>
+      <div className='container  bg-white pt-2  pb-10 w-full max-w-sm mx-auto my-5'>
         <div className="logo my-4 mx-auto rounded-full h-20 w-20 overflow-hidden  relative   ">
           <div>
             <img className='    h-20 w-20 object-cover  ' src={data?.profilePic || Logo} alt="error" />

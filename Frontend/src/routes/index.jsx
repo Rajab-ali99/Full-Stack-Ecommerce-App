@@ -7,6 +7,8 @@ import Forgotpassword from "../pages/Forgot-password";
 import AdminPanel from "../pages/AdminPanel";
 import AllProducts from "../pages/allProducts";
 import AllUsers from "../pages/allUsers";
+import CategoryProducts from "../pages/CategoryProducts";
+import ProductDetails from "../pages/ProductDetails";
 
 
 const router = createBrowserRouter([
@@ -30,6 +32,15 @@ const router = createBrowserRouter([
                 path: "Forgotpassword",
                 element: <Forgotpassword />
             },
+             {
+                path: "productCategory/:categoryName",
+                element: <CategoryProducts />
+            },
+            {
+                path: "product/:id",
+                element: <ProductDetails />
+            },
+
             {
                 path: "admin-panel",
                 element: <AdminPanel />,

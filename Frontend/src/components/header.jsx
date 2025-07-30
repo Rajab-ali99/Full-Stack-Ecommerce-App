@@ -29,7 +29,7 @@ const Header = () => {
   }
 
   return (
-    <nav className='bg-white flex items-center justify-between lg:pl-10 pr-3 lg:pr-10 shadow-md'>
+    <nav className='bg-white fixed top-0 w-full z-40  flex items-center justify-between lg:pl-10 pr-3 lg:pr-10 shadow-md'>
       <Link to={"/"} className="logo">
         <img className='w-40' src="../src/assets/logo2.png" alt="" />
       </Link>

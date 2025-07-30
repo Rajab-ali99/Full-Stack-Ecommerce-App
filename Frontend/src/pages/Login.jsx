@@ -46,9 +46,9 @@ const Login = () => {
       }
     }
     return (
-        <section id="login">
+        <section id="login ">
 
-            <div className=' bg-white rounded  pb-10 w-full max-w-sm mx-auto my-5'>
+            <div className=' bg-white rounded   pb-10 w-full max-w-sm mx-auto my-5'>
                 <div className="logo py-4">
                     <img className='w-20 rounded-full  mx-auto ' src={Logo} alt="error" />
                 </div>
