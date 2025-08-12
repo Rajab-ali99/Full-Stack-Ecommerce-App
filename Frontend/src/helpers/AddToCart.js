@@ -1,9 +1,12 @@
 import { toast } from "react-toastify"
 import SummaryApi from "../common"
+import { useContext } from "react"
+import context from "../context"
 
 const AddToCart = async(e,productId)=>{
     e.preventDefault()
     e.stopPropagation()
+    
     const response = await fetch(SummaryApi.addToCart.url,{
         method: SummaryApi.addToCart.method,
         credentials: 'include',

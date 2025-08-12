@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import SummaryApi from '../common'
 import displayPKRcurrency from '../helpers/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import AddToCart from '../helpers/AddToCart'
+import context from '../context'
 
 const VerticalProductCard = ({ category, heading }) => {
     const [data, setdata] = useState([])
@@ -35,6 +36,11 @@ const VerticalProductCard = ({ category, heading }) => {
       behavior: 'smooth',
     });
     }
+     const {fetchUserDetails,countCartProducts} =useContext(context)
+        const AddToCartProduct = async(e,id)=>{
+                 await  AddToCart(e,id)
+                 countCartProducts()
+        }
 
     useEffect(() => {
         fetchProduct()
@@ -60,9 +66,9 @@ const VerticalProductCard = ({ category, heading }) => {
                         loadingCards.map((product, index) => {
                         return (
 
-                            <div className='h-60 md:h-80 rounded-2xl flex-col  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
+                            <div key={index} className='h-60 md:h-80 rounded-2xl flex-col  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
                                 <div className='bg-slate-200 animate-pulse w-full h-1/2'>
-                                    <img className='h-full p-2 cursor-pointer  hover:scale-105 transition  all object-scale-down' src='' alt="" />
+                                    <img className='h-full p-2 cursor-pointer  hover:scale-105 transition  all object-scale-down' src={null} alt="" />
                                 </div>
                                 <div className='bg-white grid gap-2 p-2 w-full h-1/2'>
                                     <h1 className=' font-bold text-sm md:text-base bg-slate-200 animate-pulse rounded-full text-ellipsis line-clamp-1'></h1>
@@ -91,7 +97,7 @@ const VerticalProductCard = ({ category, heading }) => {
                                         <div className='md:text-xs text-[10px] text-red-500 '>{displayPKRcurrency(product.sellingPrice)}</div>
                                         <div className='md:text-xs text-[10px] line-through  text-slate-600'>{displayPKRcurrency(product.price)}</div>
                                     </div>
-                                    <button onClick={(e)=>AddToCart(e,product?._id)} className='md:px-3  text-sm md:text-base px-2 py-0.5 transition-all bg-red-500 hover:bg-red-600 cursor-pointer text-white rounded-full'>Add to Cart</button>
+                                    <button onClick={(e)=>AddToCartProduct(e,product?._id)} className='md:px-3  text-sm md:text-base px-2 py-0.5 transition-all bg-red-500 hover:bg-red-600 cursor-pointer text-white rounded-full'>Add to Cart</button>
                                 </div>
                             </Link>
                         )

@@ -7,22 +7,15 @@ import AddToCart from '../helpers/AddToCart'
 import context from '../context'
 import ScrollTop from '../helpers/ScrollTop'
 
-const ReleventProducts = ({ category, heading }) => {
+const SearchedProducts = ({productData }) => {
     const [data, setdata] = useState([])
     
     const [loading, setloading] = useState(false)
     const loadingCards = new Array(13).fill(null)
     const fetchProduct = async () => {
         setloading(true)
-        const response = await fetch(SummaryApi.categoryWiseProduct.url, {
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: SummaryApi.categoryWiseProduct.method,
-            body: JSON.stringify({ category: category })
-        })
-        const dataResponse = await response.json()
-        setdata(dataResponse.data)
+      
+        setdata(productData)
         setloading(false)
     }
      const {fetchUserDetails,countCartProducts} =useContext(context)
@@ -34,17 +27,11 @@ const ReleventProducts = ({ category, heading }) => {
 
     useEffect(() => {
         fetchProduct()
-    }, [])
+    }, [productData])
 
     return (
-        <div className='container relative mx-auto py-1'>
-            <div className='flex justify-between items-center'>
-
-                <h1 className='text-2xl md:text-2xl font-bold my-1'>{heading}</h1>
-            
-            </div>
-            <div className='h-[1px] full bg-slate-500 '></div>
-            <div  className=' flex flex-col items-center justify-center md:grid md:grid-cols-[repeat(auto-fit,_minmax(280px,_280px))]  md:justify-between gap-4 transition-all duration-700 ease-in    my-3  w-full '>
+        <div className='container relative mx-auto md:px-2 py-1'>
+            <div  className=' flex flex-col items-center  md:grid md:grid-cols-[repeat(auto-fit,_minmax(280px,_280px))] justify-center  md:justify-between gap-4 transition-all duration-700 ease-in    pt-2  w-full '>
             
   
                 
@@ -53,7 +40,7 @@ const ReleventProducts = ({ category, heading }) => {
                         loadingCards.map((product, index) => {
                         return (
 
-                            <div className='h-60 md:h-80 rounded-2xl flex-col  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
+                            <div className='h-60 md:h-80 rounded-2xl flex-col  flex min-w-[240px] md:min-w-[240px]  max-w-[260px] md:max-w-[260px]' >
                                 <div className='bg-slate-200 animate-pulse w-full h-1/2'>
                                     <img className='h-full p-2 cursor-pointer  hover:scale-105 transition  all object-scale-down' src='' alt="" />
                                 </div>
@@ -73,12 +60,12 @@ const ReleventProducts = ({ category, heading }) => {
                             data.map((product, index) => {
                         return (
 
-                            <Link onClick={ScrollTop} to={'/product/' + product._id} className='h-72 md:h-80  flex-col flex min-w-[80vw] md:min-w-[300px]  max-w-[80vw] md:max-w-[300px]' >
+                            <Link onClick={ScrollTop} to={'/product/' + product._id} className='h-64 md:h-72  flex-col flex min-w-[330px] md:min-w-[280px]  max-w-[330px] md:max-w-[280px]' >
                                 <div className='bg-slate-200 flex items-center justify-center h-1/2 w-full'>
                                     <img className='h-full p-2 cursor-pointer  hover:scale-105 mix-blend-multiply transition all object-scale-down' src={product?.productImage[0]} alt="" />
                                 </div>
                                 <div className='bg-white grid p-3 h-1/2 w-full'>
-                                    <h1 className=' font-bold  text-sm md:text-base text-ellipsis line-clamp-3'>{product?.productName}</h1>
+                                    <h1 className=' font-bold  text-sm md:text-base text-ellipsis line-clamp-2'>{product?.productName}</h1>
                                     <p className='md:text-sm text-xs text-slate-500 capitalize'>{product?.category}</p>
                                     <div className='flex md:gap-3 gap-2'>
                                         <div className='md:text-xs text-[10px] text-red-500 '>{displayPKRcurrency(product.sellingPrice)}</div>
@@ -97,4 +84,4 @@ const ReleventProducts = ({ category, heading }) => {
     )
 }
 
-export default ReleventProducts
+export default SearchedProducts

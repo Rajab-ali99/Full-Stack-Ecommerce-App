@@ -14,7 +14,7 @@ const Login = () => {
         password: "",
     })
     const navigate = useNavigate()
-    const fetchUserDetails =useContext(context)
+    const {fetchUserDetails,countCartProducts} =useContext(context)
     const handleOnChange = (e) => {
         const { name, value } = e.target
 
@@ -40,13 +40,14 @@ const Login = () => {
         toast.success(dataApi.message)
         navigate('/')
         fetchUserDetails()
+        countCartProducts()
       }
       if(dataApi.error){
         toast.error(dataApi.message)
       }
     }
     return (
-        <section id="login ">
+        <section className='flex items-center h-[80vh] justify-center' id="login ">
 
             <div className=' bg-white rounded   pb-10 w-full max-w-sm mx-auto my-5'>
                 <div className="logo py-4">

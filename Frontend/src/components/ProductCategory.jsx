@@ -28,7 +28,7 @@ const ProductCategory = () => {
                       
                         loadCategory.map((el, index) => {
                             return (
-                                <div key={index} className='bg-slate-200 h-18 w-18 hidden md:block md:h-20 md:w-20 rounded-full'>
+                                <div key={index} className='bg-slate-200 h-18 w-18 hidden animate-pulse md:block md:h-20 md:w-20 rounded-full'>
                                 </div>
                             )
                         })
@@ -37,7 +37,7 @@ const ProductCategory = () => {
 
                         productCategory.map((product, index) => {
                             return (
-                                <Link to={'/productCategory/'+product?.category} key={index} className='cursor-pointer'>
+                                <Link to={'/productCategory?category='+product?.category} key={index} className='cursor-pointer'>
                                     <div className='w-18 h-18 md:w-20 md:h-20  rounded-full flex justify-center items-center bg-slate-200 ' key={"ProductCategory" + index}>
                                         <img className='object-scale-down p-3 h-full hover:scale-125 transition-all  mix-blend-multiply' src={product?.productImage[0]} alt={product?.category} />
                                     </div>

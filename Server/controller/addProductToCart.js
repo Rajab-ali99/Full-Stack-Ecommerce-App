@@ -2,16 +2,18 @@ const addToCartModel = require("../models/cartProduct")
 
 async function addProductToCart(req, res) {
     try {
+        
+        const currentUser =req.userId
         const { productId } = req.body
-        const alreadyAvailableProduct = await addToCartModel.findOne({productId})
+        const alreadyAvailableProduct = await addToCartModel.findOne({productId: productId, userId: currentUser})
         if(alreadyAvailableProduct){
             res.json({
                 message : 'Product already available in cart',
                 success: false,
                 error:true
             })
-        }
-        const requsetedUser = req.userId
+        }else{
+            const requsetedUser = req.userId
         const payload = {
             productId: productId,
             quantity: 1,
@@ -25,6 +27,8 @@ async function addProductToCart(req, res) {
             error:false,
             data:saveProduct
         })
+        }
+        
     } catch (error) {
         res.json({
             message: error.message || error,

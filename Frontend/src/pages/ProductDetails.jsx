@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayPKRcurrency from '../helpers/displayCurrency';
 import ReleventProducts from '../components/ReleventProducts';
+import AddToCart from '../helpers/AddToCart';
+import context from '../context';
 const ProductDetails = () => {
+    const navigate = useNavigate()
     const [data, setdata] = useState({
         productName: '',
         brandName: '',
@@ -37,6 +40,17 @@ const ProductDetails = () => {
         setdata(dataResponse.data)
         setloadind(false)
     }
+    const { countCartProducts } = useContext(context)
+    const AddToCartProduct = async (e, id) => {
+        await AddToCart(e, id)
+        countCartProducts()
+    }
+    const BuyProduct = async (e, id) => {
+        await AddToCart(e, id)
+        countCartProducts()
+       navigate('/cart')
+    }
+
 
 
     const handleZoomImage = (e) => {
@@ -59,7 +73,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         fetchProduct()
-    }, [])
+    }, [params])
     return (
         <div className='container mx-auto p-4'>
             <div className='flex flex-col md:flex-row md:p-6 gap-5'>
@@ -100,7 +114,7 @@ const ProductDetails = () => {
                                                 }
                                             }}
                                             className=' cursor-pointer  h-20 w-20 shadow bg-slate-200'>
-                                            <img className='object-scale-down h-ful mix-blend-multiply' src={ImgUrl} alt="img" />
+                                            <img className='object-scale-down h-full w-full mix-blend-multiply' src={ImgUrl} alt="img" />
                                         </div>
                                     )
                                 })
@@ -120,8 +134,8 @@ const ProductDetails = () => {
                                     onMouseLeave={resetZoomImage}
                                     onMouseEnter={mouseEnter}
                                     onMouseOut={mouseOut}
-                                    className='md:h-96 md:w-96 h-[90vw ] w-[90vw] cursor-pointer   bg-slate-200'>
-                                    <img className='h-full mix-blend-multiply object-scale-down' src={activeImg} alt="" />
+                                    className='md:h-96 md:w-96 h-[80vw] flex items-center justify-center w-[92vw] cursor-pointer   bg-slate-200'>
+                                    <img className='h-full w-full mix-blend-multiply object-scale-down' src={activeImg} alt="" />
                                 </div>
                                 {showZoomImage && (
                                     <div className='h-96 absolute right-[400px] top-28  w-96 hidden md:block bg-slate-200'>
@@ -182,8 +196,8 @@ const ProductDetails = () => {
                                     <p className='text-slate-500 line-through'>{displayPKRcurrency(data.price)}</p>
                                 </div>
                                 <div className='flex gap-5'>
-                                    <button className='min-w-28 px-2 py-1  rounded-md bg-white border-2 border-red-500 text-red-500 hover:text-white transition-all cursor-pointer hover:bg-red-500'>Buy</button>
-                                    <button className='min-w-28 px-2 py-1 cursor-pointer transition-all border-red-500 border-2  rounded-md bg-red-500 text-white hover:bg-white hover:text-red-500'>Add To Cart</button>
+                                    <button className='min-w-28 px-2 py-1  rounded-md bg-white border-2 border-red-500 text-red-500 hover:text-white transition-all cursor-pointer hover:bg-red-500' onClick={(e) => BuyProduct(e, data?._id)}>Buy</button>
+                                    <button className='min-w-28 px-2 py-1 cursor-pointer transition-all border-red-500 border-2  rounded-md bg-red-500 text-white hover:bg-white hover:text-red-500' onClick={(e) => AddToCartProduct(e, data?._id)}>Add To Cart</button>
                                 </div>
                                 <h1 className='text-xl font-semibold'>Description :</h1>
                                 <div className='w-[80vw] md:w-[50vw]  h-[18vh] overflow-y-scroll  rounded px-3 bg-slate-50'>
@@ -194,12 +208,12 @@ const ProductDetails = () => {
                     }
 
                 </div>
-                
+
             </div>
             {
-                data.category &&(
+                data.category && (
 
-                    <ReleventProducts category={data?.category} heading={'Recomended Products...'}/>
+                    <ReleventProducts category={data?.category} heading={'Recomended Products...'} />
                 )
             }
         </div>

@@ -9,6 +9,8 @@ import AllProducts from "../pages/allProducts";
 import AllUsers from "../pages/allUsers";
 import CategoryProducts from "../pages/CategoryProducts";
 import ProductDetails from "../pages/ProductDetails";
+import Cart from "../pages/Cart";
+import SearchProducts from "../pages/SearchProducts";
 
 
 const router = createBrowserRouter([
@@ -33,12 +35,20 @@ const router = createBrowserRouter([
                 element: <Forgotpassword />
             },
              {
-                path: "productCategory/:categoryName",
+                path: "productCategory",
                 element: <CategoryProducts />
             },
             {
                 path: "product/:id",
                 element: <ProductDetails />
+            },
+            {
+                path: "cart",
+                element: <Cart />
+            },
+            {
+                path: "search",
+                element: <SearchProducts />
             },
 
             {

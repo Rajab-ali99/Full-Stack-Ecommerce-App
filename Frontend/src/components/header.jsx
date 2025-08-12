@@ -1,40 +1,60 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { GoSearch } from "react-icons/go";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ROLE from '../common/role';
 
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../redux/userSlice';
+import context from '../context';
 const Header = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const urlSearch = new URLSearchParams(location.search)
+  const searchQuery = urlSearch.getAll('q')
+  
   const user = useSelector(state => state?.user?.user)
   const [showMenu, setshowMenu] = useState(false)
+  const [search,setsearch] = useState(searchQuery)
   const dispatch = useDispatch()
   const handleLogout = async () => {
     const dataResponse = await fetch(SummaryApi.Logout.url, {
       method: SummaryApi.Logout.method,
       credentials: 'include'
     })
+    
     const dataApi = await dataResponse.json()
     if (dataApi.success) {
       toast.success(dataApi.message)
       dispatch(setUserDetails(null))
+      navigate('/')
     }
+    
     if (dataApi.error) {
       toast.error(dataApi.message)
     }
   }
 
+  const handleSearch = async(e)=>{
+    const {value} = e.target
+    setsearch(value) 
+    if(value){
+      navigate(`/search?q=${value}`)
+    }
+
+  }
+  
+  const Context = useContext(context)
   return (
     <nav className='bg-white fixed top-0 w-full z-40  flex items-center justify-between lg:pl-10 pr-3 lg:pr-10 shadow-md'>
       <Link to={"/"} className="logo">
         <img className='w-40' src="../src/assets/logo2.png" alt="" />
       </Link>
       <div className="hidden  lg:flex w-full max-w-sm  justify-between   ">
-        <input className='outline-none focus-within:shadow-md   w-full p-1 rounded-l-full' type="text" name="search" placeholder='Search your product...' id="" />
+        <input value={search} onChange={handleSearch} className='outline-none focus-within:shadow-md   w-full p-1 rounded-l-full' type="text" name="search" placeholder='Search your product...' id="" />
         <div className="search-icon bg-red-600 w-10 cursor-pointer  flex items-center justify-center rounded-r-full">
           <GoSearch className='text-white  ' />
         </div>
@@ -73,10 +93,15 @@ const Header = () => {
             </div>
           )
         }
-        <div className="shoping-cart relative flex ">
-          <FaShoppingCart className='text-2xl ' />
-          <span className='bg-red-600 h-5 w-5 absolute -top-2 -right-3 text-sm rounded-full flex items-center justify-center text-white '>0</span>
-        </div >
+        {
+          user?._id && (
+            <Link to={'/cart'} className="shoping-cart cursor-pointer relative flex ">
+              <FaShoppingCart className='text-2xl ' />
+              <span className='bg-red-600 h-5 w-5 absolute -top-2 -right-3 text-sm rounded-full flex items-center justify-center text-white '>{Context?.countCart}</span>
+            </Link >
+          )
+        }
+
 
 
         <div >

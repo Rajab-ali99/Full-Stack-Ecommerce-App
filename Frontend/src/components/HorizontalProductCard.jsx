@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import SummaryApi from '../common'
 import displayPKRcurrency from '../helpers/displayCurrency'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import AddToCart from '../helpers/AddToCart'
+import context from '../context'
 
 const HorizontalProductCard = ({ category, heading }) => {
     const [data, setdata] = useState([])
@@ -25,15 +26,20 @@ const HorizontalProductCard = ({ category, heading }) => {
     }
     const scrollRight = () => {
         scrollElement.current.scrollBy({
-      left: 700,
-      behavior: 'smooth',
-    });
+            left: 700,
+            behavior: 'smooth',
+        });
     }
     const scrollleft = () => {
         scrollElement.current.scrollBy({
-      left: -700,
-      behavior: 'smooth',
-    });
+            left: -700,
+            behavior: 'smooth',
+        });
+    }
+    const {fetchUserDetails,countCartProducts} =useContext(context)
+    const AddToCartProduct = async(e,id)=>{
+             await  AddToCart(e,id)
+             countCartProducts()
     }
 
     useEffect(() => {
@@ -60,9 +66,9 @@ const HorizontalProductCard = ({ category, heading }) => {
                         loadingCards.map((product, index) => {
                         return (
 
-                            <div className='h-32 md:h-36 rounded-2xl  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
+                            <div key={index} className='h-32 md:h-36 rounded-2xl  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
                                 <div className='bg-slate-200  animate-pulse w-1/2'>
-                                    <img className='h-full p-2 cursor-pointer   hover:scale-105 transition  all object-scale-down' src='' alt="" />
+                                    <img className='h-full p-2 cursor-pointer   hover:scale-105 transition  all object-scale-down' src={null} alt="" />
                                 </div>
                                 <div className='bg-white grid gap-2 p-2 w-1/2'>
                                     <h1 className=' font-bold text-sm md:text-base bg-slate-200 animate-pulse rounded-full text-ellipsis line-clamp-1'></h1>
@@ -80,7 +86,7 @@ const HorizontalProductCard = ({ category, heading }) => {
                             data.map((product, index) => {
                         return (
 
-                            <Link to={'product/' + product._id} className='h-32 md:h-36 rounded-2xl  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
+                            <Link to={'product/' + product._id} key={index} className='h-32 md:h-36 rounded-2xl  flex min-w-[260px] md:min-w-[320px]  max-w-[260px] md:max-w-[320px]' >
                                 <div className='bg-slate-200 flex items-center justify-center w-1/2'>
                                     <img className='h-full p-2 cursor-pointer mix-blend-multiple hover:scale-105 transition all object-scale-down' src={product?.productImage[0]} alt="" />
                                 </div>
@@ -91,7 +97,7 @@ const HorizontalProductCard = ({ category, heading }) => {
                                         <div className='md:text-xs text-[10px] text-red-500 '>{displayPKRcurrency(product.sellingPrice)}</div>
                                         <div className='md:text-xs text-[10px] line-through  text-slate-600'>{displayPKRcurrency(product.price)}</div>
                                     </div>
-                                    <button onClick={(e)=> AddToCart(e,product?._id)} className='md:px-3 z-20 text-sm md:text-base px-2 py-0.5 transition-all bg-red-500 hover:bg-red-600 cursor-pointer text-white rounded-full'>Add to Cart</button>
+                                    <button onClick={(e)=> AddToCartProduct(e,product?._id)} className='md:px-3 z-20 text-sm md:text-base px-2 py-0.5 transition-all bg-red-500 hover:bg-red-600 cursor-pointer text-white rounded-full'>Add to Cart</button>
                                 </div>
                             </Link>
                         )

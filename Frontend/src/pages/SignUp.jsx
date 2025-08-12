@@ -69,7 +69,7 @@ const SignUp = () => {
     }
   }
   return (
-    <section id="signup ">
+    <section className='flex items-center justify-center' id="signup ">
 
       <div className='container  bg-white pt-2  pb-10 w-full max-w-sm mx-auto my-5'>
         <div className="logo my-4 mx-auto rounded-full h-20 w-20 overflow-hidden  relative   ">

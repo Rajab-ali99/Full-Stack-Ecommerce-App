@@ -35,7 +35,7 @@ const AllUsers = () => {
   }, [])
 
   return (
-    <div className=' '>
+    <div className='h-[calc(100vh-80px)]   overflow-y-scroll '>
       <table className=' userTable w-[80vw] mt-5 mx-auto'>
         <thead>
           <tr className='bg-black text-white'>

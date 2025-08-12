@@ -16,9 +16,9 @@ const AdminPanel = () => {
     }, [user])
     
     return (
-        <div className='flex min-h-[calc(100vh-126px)] '>
+        <div className='flex min-h-[calc(100vh-80px)] '>
 
-            <aside className='bg-white  h-100vh w-[calc(20vw)] customshadow'>
+            <aside className='bg-white   w-[calc(20vw)] customshadow'>
                 <div className='flex flex-col  items-center     py-5'>
 
                     {
