@@ -1,4 +1,4 @@
-const backendDomain = "http://localhost:3000"
+const backendDomain = process.env.BACKEND_URL ;
 const SummaryApi ={
     SignUp : {
         url: `${backendDomain}/api/signup`,
