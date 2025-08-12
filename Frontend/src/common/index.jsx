@@ -1,4 +1,4 @@
-const backendDomain = process.env.BACKEND_URL ;
+const backendDomain = import.meta.BACKEND_URL ;
 const SummaryApi ={
     SignUp : {
         url: `${backendDomain}/api/signup`,
