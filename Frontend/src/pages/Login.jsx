@@ -8,6 +8,7 @@ import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import context from '../context';
 const Login = () => {
+    const [loading, setloading] = useState(false)
     const [showpassword, setshowpassword] = useState(false)
     const [data, setdata] = useState({
         email: "",
@@ -27,6 +28,7 @@ const Login = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setloading(true)
       const dataResponse = await fetch(SummaryApi.SignIn.url,{
         method: SummaryApi.SignIn.method,
         headers:{
@@ -37,12 +39,14 @@ const Login = () => {
       })
       const dataApi = await dataResponse.json()
       if(dataApi.success){
+        setloading(false)
         toast.success(dataApi.message)
         navigate('/')
         fetchUserDetails()
         countCartProducts()
       }
       if(dataApi.error){
+        setloading(false)
         toast.error(dataApi.message)
       }
     }
@@ -77,9 +81,19 @@ const Login = () => {
                             {showpassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                     </div>
-                    <Link to={"/Forgotpassword"} className='  hover:underline w-full cursor-pointer flex justify-end  hover:text-red-600 '>Forgot password?</Link >
-                    <button type='Submit'  className='bg-red-600 cursor-pointer text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >Login</button>
-                    <div className=' '>Don't have account ? <Link to={"/signup"} className='text-red-600 cursor-pointer hover:underline'>Sign up</Link></div>
+                    <Link className='  hover:underline w-full cursor-pointer flex justify-end  hover:text-red-600 '>Forgot password?</Link >
+                    <button type='Submit'  className='bg-red-600 cursor-pointer text-white px-6 hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >
+                        {
+                      loading ?(
+                               <span className='load'></span>
+                      ):(
+                               <span>Login</span>
+                      )
+                    }
+                    </button>
+                    <div className=' '>Don't have account ? <Link to={"/signup"} className='text-red-600 cursor-pointer hover:underline'>
+                    Sign Up
+                    </Link></div>
                 </form>
 
             </div>

@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import uploadFile from '../helpers/uploadFile';
 
 const SignUp = () => {
+  const [loading, setloading] = useState(false)
   const [showpassword, setshowpassword] = useState(false)
   const [showconfirmpassword, setshowconfirmpassword] = useState(false)
   const [data, setdata] = useState({
@@ -45,8 +46,9 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     if (data.password === data.confirmPassword) {
-      
+      setloading(true)
 
       const dataResponse = await fetch(SummaryApi.SignUp.url, {
         method: SummaryApi.SignUp.method,
@@ -57,10 +59,12 @@ const SignUp = () => {
       })
       const dataApi = await dataResponse.json()
       if (dataApi.success) {
+        setloading(false)
         toast.success(dataApi.message)
         navigate("/login")
       }
       if (dataApi.error) {
+        setloading(false)
         toast.error(dataApi.message)
       }
 
@@ -135,7 +139,15 @@ const SignUp = () => {
             </span>
           </div>
 
-          <button type='Submit' name='signUp' className='bg-red-600 text-white px-6 cursor-pointer hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >SignUp</button>
+          <button type='Submit' name='signUp' className='bg-red-600 text-white px-6 cursor-pointer hover:bg-red-700 transition-all mx-auto block my-5 w-full max-w-32 hover:scale-110 rounded-full py-2' >
+             {
+                      loading ?(
+                               <span className='load'></span>
+                      ):(
+                               <span>SignUp</span>
+                      )
+                    }
+          </button>
           <div className=' '>Already have account ? <Link to={"/login"} className='text-red-600 cursor-pointer hover:underline'>Sign in</Link></div>
         </form>
 
