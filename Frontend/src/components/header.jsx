@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { GoSearch } from "react-icons/go";
 import { FaRegUserCircle } from "react-icons/fa";
+import logo from '../assets/logo2.png';
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,7 +52,7 @@ const Header = () => {
   return (
     <nav className='bg-white fixed top-0 w-full z-40  flex items-center justify-between lg:pl-10 pr-3 lg:pr-10 shadow-md'>
       <Link to={"/"} className="logo">
-        <img className='w-40' src="../src/assets/logo2.png" alt="" />
+        <img className='w-40' src={logo} alt="" />
       </Link>
       <div className="hidden  lg:flex w-full max-w-sm  justify-between   ">
         <input value={search} onChange={handleSearch} className='outline-none focus-within:shadow-md   w-full p-1 rounded-l-full' type="text" name="search" placeholder='Search your product...' id="" />
