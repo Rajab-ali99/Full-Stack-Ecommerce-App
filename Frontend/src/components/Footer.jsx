@@ -2,6 +2,7 @@ import React from "react";
 import "./Footer.css";
 import { Link, useNavigate } from "react-router-dom";
 import {assets} from '../assets/assets'
+import logo from '../assets/logo2.png';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Footer = () => {
     <footer className="" id="footer">
       <div className="footer-content z-50">
         <div className="footer-content-left">
-          <img className='w-40 invert mix-blend-color-burn' src="../src/assets/logo2.png" alt="" />
+          <img className='w-40 invert mix-blend-color-burn' src={logo} alt="" />
           <p className="text-white">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit
             ratione fugiat vitae quisquam dolores sint id, nisi veniam
