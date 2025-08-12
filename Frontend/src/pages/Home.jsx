@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductCategory from '../components/productCategory'
+import ProductCategory from '../components/ProductCategory'
 import SliderBanner from '../components/SliderBanner'
 import HorizontalProductCard from '../components/HorizontalProductCard'
 import VerticalProductCard from '../components/VerticalCardProduct'
