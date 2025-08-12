@@ -5,7 +5,7 @@ require('dotenv').config()
 const connectDb = require('./config/db')
 const router = require ('./routes')
 const app = express()
-const port = 3000
+const port = process.env.port || 3000
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   credentials: true
